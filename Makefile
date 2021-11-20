@@ -16,26 +16,23 @@ HEADERS_DIR = ./headers
 SRC_DIR = ./src
 
 
-#$(EXEC): main.cpp nave.o tipoitem.o tipocelula.o pilha.o fila.o lista.o pilhaencadeada.o listaencadeada.o filaencadeada.o  
-#	$(CC) $(CFLAGS) main.cpp tipoitem.o tipocelula.o nave.o pilha.o fila.o lista.o pilhaencadeada.o listaencadeada.o filaencadeada.o -o $(EXEC)
+$(EXEC): ${SRC_DIR}/main.cpp loja.o cliente.o
+	$(CC) $(CFLAGS) ${SRC_DIR}/main.cpp loja.o cliente.o -o $(EXEC)
 
-$(EXEC): ${SRC_DIR}/main.cpp posto.o pessoa.o
-	$(CC) $(CFLAGS) ${SRC_DIR}/main.cpp posto.o pessoa.o -o $(EXEC)
+cliente.o: ${HEADERS_DIR}/Cliente.hpp  ${SRC_DIR}/Cliente.cpp 
+	$(CC) $(CFLAGS) -c ${SRC_DIR}/Cliente.cpp -o cliente.o
 
-pessoa.o: ${HEADERS_DIR}/Pessoa.hpp  ${SRC_DIR}/Pessoa.cpp 
-	$(CC) $(CFLAGS) -c ${SRC_DIR}/Pessoa.cpp -o pessoa.o
-
-posto.o: ${HEADERS_DIR}/Posto.hpp  ${SRC_DIR}/Posto.cpp 
-	$(CC) $(CFLAGS) -c ${SRC_DIR}/Posto.cpp -o posto.o
+loja.o: ${HEADERS_DIR}/Loja.hpp  ${SRC_DIR}/Loja.cpp 
+	$(CC) $(CFLAGS) -c ${SRC_DIR}/Loja.cpp -o loja.o
  
 test: $(EXEC)
 	@bash run_tests.sh $(EXEC) $(TMPOUT)
 
 clean: 
-	rm -rf posto.o pessoa.o
+	rm -rf loja.o cliente.o
 
 clean_windows:
-	del posto.o pessoa.o
+	del loja.o cliente.o
 # === OUTROS =====
 # ================
 # 
